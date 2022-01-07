@@ -3,25 +3,37 @@ import 'dart:async';
 
 import 'package:flutter/services.dart';
 import 'package:flutter_pytorch_coreml_cyclegan/flutter_pytorch_coreml_cyclegan.dart';
+import 'package:flutter_pytorch_coreml_cyclegan_example/ui/display_image.dart';
+import 'package:flutter_pytorch_coreml_cyclegan_example/utils/file_utils.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const SampleApp());
 }
 
-class MyApp extends StatefulWidget {
-  const MyApp({Key? key}) : super(key: key);
+class SampleApp extends StatefulWidget {
+  const SampleApp({Key? key}) : super(key: key);
 
   @override
-  State<MyApp> createState() => _MyAppState();
+  State<SampleApp> createState() => _SampleAppState();
 }
 
-class _MyAppState extends State<MyApp> {
+class _SampleAppState extends State<SampleApp> {
   String _platformVersion = 'Unknown';
+  String? _modelPath;
 
   @override
   void initState() {
     super.initState();
-    initPlatformState();
+    loadMLModel();
+    // initPlatformState();
+  }
+
+  Future<void> loadMLModel() async {
+    final modelPath = 
+        await FileUtils.copyAssetToAppDir(_Const.assetModelPath, _Const.appDirModelPath);
+    setState(() {
+      _modelPath = modelPath;
+    });
   }
 
   // Platform messages are asynchronous, so we initialize in an async method.
@@ -31,7 +43,7 @@ class _MyAppState extends State<MyApp> {
     // We also handle the message potentially returning null.
     try {
       platformVersion =
-          await FlutterPytorchCoremlCyclegan.platformVersion ?? 'Unknown platform version';
+          await GANImageConverter.platformVersion ?? 'Unknown platform version';
     } on PlatformException {
       platformVersion = 'Failed to get platform version.';
     }
@@ -48,15 +60,25 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+    final modelPath = _modelPath;
+
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
           title: const Text('Plugin example app'),
         ),
         body: Center(
-          child: Text('Running on: $_platformVersion\n'),
+          // child: Text('Running on: $_platformVersion\n'),
+          child: modelPath != null
+              ? DisplayImage(modelPath: modelPath)
+              : const Text('model loading...')
         ),
       ),
     );
   }
+}
+
+class _Const {
+  static const assetModelPath = 'assets/pytorch_model/GANModelFloat32.ptl';
+  static const appDirModelPath = 'GANModelFloat32.ptl';
 }

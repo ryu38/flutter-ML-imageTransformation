@@ -22,10 +22,20 @@ class FlutterPytorchCoremlCycleganPlugin: FlutterPlugin, MethodCallHandler {
   }
 
   override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
-    if (call.method == "getPlatformVersion") {
-      result.success("Android ${android.os.Build.VERSION.RELEASE}")
-    } else {
-      result.notImplemented()
+    when (call.method) {
+      "getPlatformVersion" -> {
+        result.success("Android ${android.os.Build.VERSION.RELEASE}")
+      }
+      "convertImage" -> {
+        val params = call.arguments as HashMap<String, *>
+        val imagePath = params["imagePath"] as String
+        val modelPath = params["modelPath"] as String
+        val outputPath = params["outputPath"] as String
+        result.success(ConvertImage.main(imagePath, modelPath, outputPath))
+      }
+      else -> {
+        result.notImplemented()
+      }
     }
   }
 

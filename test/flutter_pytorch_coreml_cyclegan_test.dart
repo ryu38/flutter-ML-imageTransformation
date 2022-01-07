@@ -18,6 +18,6 @@ void main() {
   });
 
   test('getPlatformVersion', () async {
-    expect(await FlutterPytorchCoremlCyclegan.platformVersion, '42');
+    expect(await GANImageConverter.platformVersion, '42');
   });
 }
