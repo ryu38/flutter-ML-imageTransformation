@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'dart:async';
 
@@ -29,11 +31,16 @@ class _SampleAppState extends State<SampleApp> {
   }
 
   Future<void> loadMLModel() async {
-    final modelPath = 
-        await FileUtils.copyAssetToAppDir(_Const.assetModelPath, _Const.appDirModelPath);
-    setState(() {
-      _modelPath = modelPath;
-    });
+    try {
+      final config = _Config();
+      final modelPath = 
+          await FileUtils.copyAssetToAppDir(config.assetModelPath, config.appDirModelPath);
+      setState(() {
+        _modelPath = modelPath;
+      });
+    } on Exception catch(e) {
+      print(e);
+    }
   }
 
   // Platform messages are asynchronous, so we initialize in an async method.
@@ -67,18 +74,64 @@ class _SampleAppState extends State<SampleApp> {
         appBar: AppBar(
           title: const Text('Plugin example app'),
         ),
-        body: Center(
-          // child: Text('Running on: $_platformVersion\n'),
-          child: modelPath != null
-              ? DisplayImage(modelPath: modelPath)
-              : const Text('model loading...')
+        body: SingleChildScrollView(
+          child: Center(
+            // child: Text('Running on: $_platformVersion\n'),
+            child: modelPath != null
+                ? DisplayImage(modelPath: modelPath)
+                : const Text('model loading...')
+          ),
         ),
       ),
     );
   }
 }
 
-class _Const {
-  static const assetModelPath = 'assets/pytorch_model/GANModelFloat32.ptl';
-  static const appDirModelPath = 'GANModelFloat32.ptl';
+// class _AndroidConfig extends _Config {
+//   @override
+//   final assetModelPath = 'assets/pytorch_model/GANModelFloat32.ptl';
+//   @override
+//   final appDirModelPath = 'GANModelFloat32.ptl';
+// }
+
+// class _IOSConfig extends _Config {
+//   @override
+//   final assetModelPath = 'assets/pytorch_model/GANModelFloat32.ptl';
+//   @override
+//   final appDirModelPath = 'GANModelFloat32.ptl';
+
+//   const _IOSConfig();
+// }
+
+class _Config {
+  final String assetModelPath;
+  final String appDirModelPath;
+
+  // private constructor
+  const _Config._(
+    this.assetModelPath,
+    this.appDirModelPath
+  );
+
+  factory _Config() {
+    final _Config instance;
+    if (Platform.isAndroid) {
+      instance = const _Config._android();
+    } else if (Platform.isIOS) {
+      instance = const _Config._ios();
+    } else {
+      throw Exception("the platform not supported; supporting ios or android");
+    }
+    return instance;
+  }
+
+  const _Config._android(): this._(
+    'assets/pytorch_model/GANModelFloat32.ptl',
+    'GANModelFloat32.ptl'
+  );
+
+  const _Config._ios(): this._(
+    'assets/coreml_model/GANModelInt8.mlmodel',
+    'GANModelInt8.mlmodel'
+  );
 }

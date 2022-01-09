@@ -1,10 +1,8 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_pytorch_coreml_cyclegan/flutter_pytorch_coreml_cyclegan.dart';
 import 'package:flutter_pytorch_coreml_cyclegan_example/utils/file_utils.dart';
-import 'package:path_provider/path_provider.dart';
 
 class DisplayImage extends StatefulWidget {
   final String modelPath;
@@ -49,7 +47,7 @@ class _DisplayImageState extends State<DisplayImage> {
     
     final result = await GANImageConverter
         .convertImage(imagePath, widget.modelPath, outputPath);
-    
+    print(result);
     if (result) {
       final newImage = Image.file(File(outputPath));
 
@@ -70,8 +68,6 @@ class _DisplayImageState extends State<DisplayImage> {
         ? Column(
           children: [
             imageShown,
-            Text('image path: ${_imagePath ?? 'error path'}'),
-            Text('model path: ${widget.modelPath}'),
             !_isConverted 
                 ? ElevatedButton(
                   onPressed: convert, 
@@ -80,7 +76,10 @@ class _DisplayImageState extends State<DisplayImage> {
                 : ElevatedButton(
                   onPressed: loadAssetImg, 
                   child: const Text('reset')
-                )
+                ),
+            Text('image path: ${_imagePath ?? 'error path'}'),
+            const SizedBox(height: 24),
+            Text('model path: ${widget.modelPath}')
           ],
         )
         : const Text('No Images');
