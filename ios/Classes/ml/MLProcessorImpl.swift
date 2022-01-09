@@ -15,10 +15,8 @@ class MLProcessorImpl: MLProcessor {
     let _model: VNCoreMLModel
     private let _request: VNCoreMLRequest
     
-    init?(modelPath: String) {
-        guard let model = try? createVNModel(modelPath: modelPath)
-            else { return nil }
-        _model = model
+    init(modelPath: String) throws {
+        _model = try createVNModel(modelPath: modelPath)
         _request = VNCoreMLRequest(model: _model)
         _request.imageCropAndScaleOption = .centerCrop
         _request.usesCPUOnly = true
@@ -36,8 +34,8 @@ class MLProcessorImpl: MLProcessor {
 }
 
 @available(iOS 11.0, *)
-func createVNModel(modelPath: String) throws -> VNCoreMLModel? {
-    guard let modelUrl = URL(string: modelPath) else { return nil }
+func createVNModel(modelPath: String) throws -> VNCoreMLModel {
+    let modelUrl = URL.init(fileURLWithPath: modelPath)
     let compiledUrl = try MLModel.compileModel(at: modelUrl)
     let model = try MLModel(contentsOf: compiledUrl)
     return try VNCoreMLModel(for: model)
