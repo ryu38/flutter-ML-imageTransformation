@@ -2,20 +2,22 @@ package com.example.flutter_pytorch_coreml_cyclegan
 
 import com.example.flutter_pytorch_coreml_cyclegan.pytorch.GANProcessor
 import com.example.flutter_pytorch_coreml_cyclegan.pytorch.GANProcessorImpl
+import com.example.flutter_pytorch_coreml_cyclegan.utils.BitmapProcessor
 import com.example.flutter_pytorch_coreml_cyclegan.utils.BitmapProcessorImpl
 
 object ConvertImage {
 
+    private val bitmapProcessor: BitmapProcessor = BitmapProcessorImpl()
     private var ganProcessor: GANProcessor? = null
 
     fun main(imagePath: String, modelPath: String, outputPath: String): Boolean {
-        val srcBitmap = BitmapProcessorImpl.loadImage(imagePath)
-        val input = BitmapProcessorImpl.centerCropScale(srcBitmap, WIDTH, HEIGHT)
+        val srcBitmap = bitmapProcessor.loadImage(imagePath)
+        val input = bitmapProcessor.centerCropScale(srcBitmap, WIDTH, HEIGHT)
         if (ganProcessor == null) {
             ganProcessor = GANProcessorImpl(modelPath)
         }
         ganProcessor?.process(input)?.also {
-            BitmapProcessorImpl.saveBitmap(it, outputPath)
+            bitmapProcessor.saveBitmap(it, outputPath)
             return true
         }
         return false
