@@ -11,5 +11,5 @@ protocol ImageUtils {
     
     func loadImage(path: String) throws -> CIImage
     
-//    func saveImage(image: CIImage, path: String) throws
+    func saveImage(image: UIImage, path: String) throws
 }

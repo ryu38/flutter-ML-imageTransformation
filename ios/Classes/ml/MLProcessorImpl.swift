@@ -9,7 +9,6 @@ import Foundation
 import CoreML
 import Vision
 
-@available(iOS 11.0, *)
 class MLProcessorImpl: MLProcessor {
     
     let _model: VNCoreMLModel
@@ -25,15 +24,15 @@ class MLProcessorImpl: MLProcessor {
     func process(image: CIImage) throws -> UIImage {
         let handler = VNImageRequestHandler(ciImage: image)
         try handler.perform([_request])
-        if let result = request.result?[0] as? VNPixelBufferObservation {
-            return UIImage(pixelBuffer: result.pixelBuffer)
+        if let result = _request.results?[0] as? VNPixelBufferObservation,
+            let outputImage = UIImage(pixelBuffer: result.pixelBuffer) {
+            return outputImage
         } else {
             throw AppError.nilResult("a mlprocess result is nil")
         }
     }
 }
 
-@available(iOS 11.0, *)
 func createVNModel(modelPath: String) throws -> VNCoreMLModel {
     let modelUrl = URL.init(fileURLWithPath: modelPath)
     let compiledUrl = try MLModel.compileModel(at: modelUrl)

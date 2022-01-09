@@ -17,14 +17,11 @@ class CMImageTransform {
         do {
             let src = try imageUtils.loadImage(path: imagePath)
             let input = src.centerCropScale(width: 256, height: 256)
-            guard (mlProcessor != nil) else {
-                
+            if (mlProcessor == nil) {
+                mlProcessor = try MLProcessorImpl(modelPath: modelPath)
             }
-            guard let jpgData = UIImage(ciImage: input).jpegData(compressionQuality: 1.0) else {
-                throw AppError.nilResult("nil in converting jpg")
-            }
-            let outputUrl = URL.init(fileURLWithPath: outputPath)
-            try jpgData.write(to: outputUrl)
+            let output = try mlProcessor!.process(image: input)
+            try imageUtils.saveImage(image: output, path: outputPath)
             return nil
         } catch let error {
             return error.localizedDescription

@@ -20,7 +20,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Flutter: 50d75fe2f02b26cc09d224853bb45737f8b3214a
-  flutter_pytorch_coreml_cyclegan: a4f802c273e7d409da8e7ce508576d2904bf24d6
+  flutter_pytorch_coreml_cyclegan: 8d8fb76a4ab409adedb0b154f6aec7d2ae09234e
   path_provider_ios: 7d7ce634493af4477d156294792024ec3485acd5
 
 PODFILE CHECKSUM: aafe91acc616949ddb318b77800a7f51bffa2a4c

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import VideoToolbox
 
 extension CIImage {
     
@@ -39,4 +40,32 @@ extension CIImage {
             x: resizedImage.extent.minX, y: resizedImage.extent.minY,
             width: width, height: height))
     }
+}
+
+extension UIImage {
+    /**
+    Creates a new UIImage from a CVPixelBuffer.
+    - Note: Not all CVPixelBuffer pixel formats support conversion into a
+            CGImage-compatible pixel format.
+    */
+    public convenience init?(pixelBuffer: CVPixelBuffer) {
+        if let cgImage = CGImage.create(pixelBuffer: pixelBuffer) {
+          self.init(cgImage: cgImage)
+        } else {
+          return nil
+        }
+    }
+}
+
+extension CGImage {
+  /**
+    Creates a new CGImage from a CVPixelBuffer.
+    - Note: Not all CVPixelBuffer pixel formats support conversion into a
+            CGImage-compatible pixel format.
+  */
+  public static func create(pixelBuffer: CVPixelBuffer) -> CGImage? {
+    var cgImage: CGImage?
+    VTCreateCGImageFromCVPixelBuffer(pixelBuffer, options: nil, imageOut: &cgImage)
+    return cgImage
+  }
 }

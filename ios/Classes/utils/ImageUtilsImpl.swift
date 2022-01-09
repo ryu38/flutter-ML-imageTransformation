@@ -8,6 +8,7 @@
 import Foundation
 
 class ImageUtilsImpl: ImageUtils {
+    
     func loadImage(path: String) throws -> CIImage {
         let url = URL.init(fileURLWithPath: path)
         let imageData = try Data(contentsOf: url)
@@ -17,11 +18,11 @@ class ImageUtilsImpl: ImageUtils {
         return image
     }
     
-//    func centerResize(image: CIImage) -> CIImage {
-//        <#code#>
-//    }
-
-//    func saveImage(image: UIImage, path: String) throws {
-//        <#code#>
-//    }
+    func saveImage(image: UIImage, path: String) throws {
+        guard let jpgData = image.jpegData(compressionQuality: 1.0) else {
+            throw AppError.nilResult("fail to convert uiimage to jpg")
+        }
+        let url = URL.init(fileURLWithPath: path)
+        try jpgData.write(to: url)
+    }
 }
