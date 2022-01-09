@@ -85,11 +85,11 @@ class _Config {
 
   const _Config._android(): this._(
     'assets/pytorch_model/GANModelFloat32.ptl',
-    'GANModelFloat32.ptl'
+    'GANModel.ptl'
   );
 
   const _Config._ios(): this._(
-    'assets/coreml_model/GANModelInt8.mlmodel',
-    'GANModelInt8.mlmodel'
+    'assets/coreml_model/GANModelFloat16.mlmodel',
+    'GANModel.mlmodel'
   );
 }

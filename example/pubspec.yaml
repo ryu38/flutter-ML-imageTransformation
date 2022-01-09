@@ -58,8 +58,8 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/target.jpg
-    - assets/pytorch_model/GANModelFloat32.ptl
-    - assets/coreml_model/GANModelInt8.mlmodel
+    - assets/pytorch_model/
+    - assets/coreml_model/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
