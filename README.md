@@ -1,4 +1,4 @@
-# flutter_pytorch_coreml_cyclegan
+# Flutter ML Image Transformation
 
 A new flutter plugin project.
 
