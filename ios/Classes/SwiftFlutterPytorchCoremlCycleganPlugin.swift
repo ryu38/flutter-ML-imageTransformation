@@ -13,7 +13,7 @@ public class SwiftFlutterPytorchCoremlCycleganPlugin: NSObject, FlutterPlugin {
     
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         switch call.method {
-        case "convertImage":
+        case "transformImage":
             let params = call.arguments as! Dictionary<String, Any>
             let imagePath = params["imagePath"] as! String
             let modelPath = params["modelPath"] as! String
