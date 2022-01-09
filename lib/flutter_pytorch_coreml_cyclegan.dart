@@ -17,7 +17,13 @@ class GANImageConverter {
       'modelPath': modelPath,
       'outputPath': outputPath,
     };
-    final bool? result = await _channel.invokeMethod('convertImage', params);
-    return result ?? false;
+    final String? errorMessage = await _channel.invokeMethod('convertImage', params);
+    if (errorMessage != null) {
+      print(errorMessage);
+      return false;
+    } else {
+      print("no error");
+      return true;
+    }
   }
 }

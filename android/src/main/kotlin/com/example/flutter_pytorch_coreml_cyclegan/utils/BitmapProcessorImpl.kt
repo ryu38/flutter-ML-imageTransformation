@@ -6,7 +6,7 @@ import android.graphics.Matrix
 import java.io.ByteArrayOutputStream
 import java.io.File
 
-object BitmapProcessorImpl: BitmapProcessor {
+class BitmapProcessorImpl: BitmapProcessor {
 
     override fun loadImage(path: String): Bitmap {
         return BitmapFactory.decodeFile(path)

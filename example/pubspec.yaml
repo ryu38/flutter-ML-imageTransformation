@@ -59,8 +59,7 @@ flutter:
   assets:
     - assets/target.jpg
     - assets/pytorch_model/GANModelFloat32.ptl
-  #   - images/a_dot_burr.jpeg
-  #   - images/a_dot_ham.jpeg
+    - assets/coreml_model/GANModelInt8.mlmodel
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
