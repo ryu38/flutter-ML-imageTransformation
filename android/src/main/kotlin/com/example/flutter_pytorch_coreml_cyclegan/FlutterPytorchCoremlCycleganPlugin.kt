@@ -1,6 +1,7 @@
 package com.example.flutter_pytorch_coreml_cyclegan
 
 import androidx.annotation.NonNull
+import com.example.flutter_pytorch_coreml_cyclegan.channelMethods.CMImageTransform
 
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.plugin.common.MethodCall
@@ -31,7 +32,7 @@ class FlutterPytorchCoremlCycleganPlugin: FlutterPlugin, MethodCallHandler {
         val imagePath = params["imagePath"] as String
         val modelPath = params["modelPath"] as String
         val outputPath = params["outputPath"] as String
-        result.success(ConvertImage.main(imagePath, modelPath, outputPath))
+        result.success(CMImageTransform.main(imagePath, modelPath, outputPath))
       }
       else -> {
         result.notImplemented()

@@ -6,7 +6,7 @@ import org.pytorch.IValue
 import org.pytorch.Module
 import org.pytorch.torchvision.TensorImageUtils
 
-class GANProcessorImpl(modelPath: String): GANProcessor {
+class MLProcessorImpl(modelPath: String): MLProcessor {
 
     private val module = Module.load(modelPath)
 
