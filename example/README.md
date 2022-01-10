@@ -1,6 +1,6 @@
-# flutter_pytorch_coreml_cyclegan_example
+# flutter_ml_image_transformation_example
 
-Demonstrates how to use the flutter_pytorch_coreml_cyclegan plugin.
+Demonstrates how to use the flutter_ml_image_transformation plugin.
 
 ## Getting Started
 

@@ -1,3 +1,3 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-  package="com.example.flutter_pytorch_coreml_cyclegan">
+  package="com.example.flutter_ml_image_transformation">
 </manifest>

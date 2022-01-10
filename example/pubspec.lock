@@ -83,7 +83,7 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.4"
-  flutter_pytorch_coreml_cyclegan:
+  flutter_ml_image_transformation:
     dependency: "direct main"
     description:
       path: ".."

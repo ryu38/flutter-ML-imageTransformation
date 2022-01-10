@@ -1,9 +1,9 @@
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter_pytorch_coreml_cyclegan/flutter_pytorch_coreml_cyclegan.dart';
+import 'package:flutter_ml_image_transformation/flutter_ml_image_transformation.dart';
 
 void main() {
-  const MethodChannel channel = MethodChannel('flutter_pytorch_coreml_cyclegan');
+  const MethodChannel channel = MethodChannel('flutter_ml_image_transformation');
 
   TestWidgetsFlutterBinding.ensureInitialized();
 

@@ -4,7 +4,7 @@ import 'dart:async';
 import 'package:flutter/services.dart';
 
 class MLImageTransformer {
-  static const MethodChannel _channel = MethodChannel('flutter_pytorch_coreml_cyclegan');
+  static const MethodChannel _channel = MethodChannel('flutter_ml_image_transformation');
 
   static Future<String?> setModel({
     required String modelPath,

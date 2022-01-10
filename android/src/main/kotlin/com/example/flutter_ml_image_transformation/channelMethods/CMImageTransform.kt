@@ -1,9 +1,9 @@
-package com.example.flutter_pytorch_coreml_cyclegan.channelMethods
+package com.example.flutter_ml_image_transformation.channelMethods
 
-import com.example.flutter_pytorch_coreml_cyclegan.pytorch.MLProcessor
-import com.example.flutter_pytorch_coreml_cyclegan.pytorch.MLProcessorImpl
-import com.example.flutter_pytorch_coreml_cyclegan.utils.BitmapProcessor
-import com.example.flutter_pytorch_coreml_cyclegan.utils.BitmapProcessorImpl
+import com.example.flutter_ml_image_transformation.pytorch.MLProcessor
+import com.example.flutter_ml_image_transformation.pytorch.MLProcessorImpl
+import com.example.flutter_ml_image_transformation.utils.BitmapProcessor
+import com.example.flutter_ml_image_transformation.utils.BitmapProcessorImpl
 
 object CMImageTransform {
 

@@ -43,7 +43,7 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId "com.example.flutter_pytorch_coreml_cyclegan_example"
+        applicationId "com.example.flutter_ml_image_transformation_example"
         minSdkVersion 27
         targetSdkVersion 31
         versionCode flutterVersionCode.toInteger()

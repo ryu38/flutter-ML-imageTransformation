@@ -1,4 +1,4 @@
-name: flutter_pytorch_coreml_cyclegan
+name: flutter_ml_image_transformation
 description: A new flutter plugin project.
 version: 0.0.1
 homepage:
@@ -28,7 +28,7 @@ flutter:
   plugin:
     platforms:
       android:
-        package: com.example.flutter_pytorch_coreml_cyclegan
+        package: com.example.flutter_ml_image_transformation
         pluginClass: FlutterPytorchCoremlCycleganPlugin
       ios:
         pluginClass: FlutterPytorchCoremlCycleganPlugin

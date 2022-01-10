@@ -1,4 +1,4 @@
-package com.example.flutter_pytorch_coreml_cyclegan.utils
+package com.example.flutter_ml_image_transformation.utils
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory

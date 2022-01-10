@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.flutter_pytorch_coreml_cyclegan_example">
+    package="com.example.flutter_ml_image_transformation_example">
    <application
-        android:label="flutter_pytorch_coreml_cyclegan_example"
+        android:label="flutter_ml_image_transformation_example"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

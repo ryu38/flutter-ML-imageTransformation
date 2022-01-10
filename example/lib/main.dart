@@ -3,9 +3,9 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'dart:async';
 
-import 'package:flutter_pytorch_coreml_cyclegan/flutter_pytorch_coreml_cyclegan.dart';
-import 'package:flutter_pytorch_coreml_cyclegan_example/ui/display_image.dart';
-import 'package:flutter_pytorch_coreml_cyclegan_example/utils/file_utils.dart';
+import 'package:flutter_ml_image_transformation/flutter_ml_image_transformation.dart';
+import 'package:flutter_ml_image_transformation_example/ui/display_image.dart';
+import 'package:flutter_ml_image_transformation_example/utils/file_utils.dart';
 
 void main() {
   runApp(const SampleApp());

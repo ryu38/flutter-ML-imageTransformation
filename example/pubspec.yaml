@@ -1,5 +1,5 @@
-name: flutter_pytorch_coreml_cyclegan_example
-description: Demonstrates how to use the flutter_pytorch_coreml_cyclegan plugin.
+name: flutter_ml_image_transformation_example
+description: Demonstrates how to use the flutter_ml_image_transformation plugin.
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
@@ -18,9 +18,9 @@ dependencies:
   flutter:
     sdk: flutter
 
-  flutter_pytorch_coreml_cyclegan:
+  flutter_ml_image_transformation:
     # When depending on this package from a real application you should use:
-    #   flutter_pytorch_coreml_cyclegan: ^x.y.z
+    #   flutter_ml_image_transformation: ^x.y.z
     # See https://dart.dev/tools/pub/dependencies#version-constraints
     # The example app is bundled with the plugin so we use a path dependency on
     # the parent directory to use the current plugin's version.

@@ -1,7 +1,7 @@
-package com.example.flutter_pytorch_coreml_cyclegan
+package com.example.flutter_ml_image_transformation
 
 import androidx.annotation.NonNull
-import com.example.flutter_pytorch_coreml_cyclegan.channelMethods.CMImageTransform
+import com.example.flutter_ml_image_transformation.channelMethods.CMImageTransform
 
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.plugin.common.MethodCall
@@ -18,7 +18,7 @@ class FlutterPytorchCoremlCycleganPlugin: FlutterPlugin, MethodCallHandler {
   private lateinit var channel : MethodChannel
 
   override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
-    channel = MethodChannel(flutterPluginBinding.binaryMessenger, "flutter_pytorch_coreml_cyclegan")
+    channel = MethodChannel(flutterPluginBinding.binaryMessenger, "flutter_ml_image_transformation")
     channel.setMethodCallHandler(this)
   }
 

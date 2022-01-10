@@ -4,7 +4,7 @@ import UIKit
 public class SwiftFlutterPytorchCoremlCycleganPlugin: NSObject, FlutterPlugin {
     public static func register(with registrar: FlutterPluginRegistrar) {
         let channel = FlutterMethodChannel(
-            name: "flutter_pytorch_coreml_cyclegan",
+            name: "flutter_ml_image_transformation",
             binaryMessenger: registrar.messenger()
         )
         let instance = SwiftFlutterPytorchCoremlCycleganPlugin()

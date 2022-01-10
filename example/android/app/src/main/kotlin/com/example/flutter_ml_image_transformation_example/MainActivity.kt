@@ -1,4 +1,4 @@
-package com.example.flutter_pytorch_coreml_cyclegan_example
+package com.example.flutter_ml_image_transformation_example
 
 import io.flutter.embedding.android.FlutterActivity
 

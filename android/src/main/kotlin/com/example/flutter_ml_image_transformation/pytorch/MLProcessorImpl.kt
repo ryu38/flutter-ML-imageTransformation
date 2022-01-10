@@ -1,4 +1,4 @@
-package com.example.flutter_pytorch_coreml_cyclegan.pytorch
+package com.example.flutter_ml_image_transformation.pytorch
 
 import android.graphics.Bitmap
 import android.graphics.Color
