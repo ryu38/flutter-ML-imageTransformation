@@ -32,6 +32,8 @@ class _SampleAppState extends State<SampleApp> {
       final config = _Config();
       final modelPath = 
           await FileUtils.copyAssetToAppDir(config.assetModelPath, config.appDirModelPath);
+      final result = await MLImageTransformer.setModel(modelPath: modelPath);
+      if (result != null) throw Exception(result);
       setState(() {
         _modelPath = modelPath;
       });

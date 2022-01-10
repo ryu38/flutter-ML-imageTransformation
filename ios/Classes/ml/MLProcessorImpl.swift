@@ -11,10 +11,15 @@ import Vision
 
 class MLProcessorImpl: MLProcessor {
     
-    let _model: VNCoreMLModel
+    let width: Int
+    let height: Int
+    
+    private let _model: VNCoreMLModel
     private let _request: VNCoreMLRequest
     
-    init(modelPath: String) throws {
+    init(_ modelPath: String, _ width: Int, _ height: Int) throws {
+        self.width = width
+        self.height = height
         _model = try createVNModel(modelPath: modelPath)
         _request = VNCoreMLRequest(model: _model)
         _request.imageCropAndScaleOption = .centerCrop

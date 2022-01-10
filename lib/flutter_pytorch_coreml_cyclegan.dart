@@ -3,22 +3,32 @@ import 'dart:async';
 
 import 'package:flutter/services.dart';
 
-class GANImageConverter {
+class MLImageTransformer {
   static const MethodChannel _channel = MethodChannel('flutter_pytorch_coreml_cyclegan');
 
-  static Future<bool> transformImage(String imagePath, String modelPath, String outputPath) async {
+  static Future<String?> setModel({
+    required String modelPath,
+    int inputWidth = 256,
+    int inputHeight = 256,
+  }) async {
+    final params = <String, dynamic>{
+      'modelPath': modelPath,
+      'inputWidth': inputWidth,
+      'inputHeight': inputHeight
+    };
+    final String? errorMessage = await _channel.invokeMethod('setModel', params);
+    return errorMessage;
+  }
+
+  static Future<String?> transformImage({
+    required String imagePath,
+    required String outputPath,
+  }) async {
     final params = <String, dynamic>{
       'imagePath': imagePath,
-      'modelPath': modelPath,
       'outputPath': outputPath,
     };
     final String? errorMessage = await _channel.invokeMethod('transformImage', params);
-    if (errorMessage != null) {
-      print(errorMessage);
-      return false;
-    } else {
-      print("no error");
-      return true;
-    }
+    return errorMessage;
   }
 }

@@ -24,12 +24,22 @@ class FlutterPytorchCoremlCycleganPlugin: FlutterPlugin, MethodCallHandler {
 
   override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
     when (call.method) {
+      "setModel" -> {
+        val params = call.arguments as HashMap<String, *>
+        val modelPath = params["modelPath"] as String
+        val width = params["inputWidth"] as Int
+        val height = params["inputHeight"] as Int
+        result.success(
+          CMImageTransform.setModel(modelPath, width, height)
+        )
+      }
       "transformImage" -> {
         val params = call.arguments as HashMap<String, *>
         val imagePath = params["imagePath"] as String
-        val modelPath = params["modelPath"] as String
         val outputPath = params["outputPath"] as String
-        result.success(CMImageTransform.main(imagePath, modelPath, outputPath))
+        result.success(
+          CMImageTransform.transformImage(imagePath, outputPath)
+        )
       }
       else -> {
         result.notImplemented()

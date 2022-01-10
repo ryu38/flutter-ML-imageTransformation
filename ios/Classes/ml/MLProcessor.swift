@@ -10,5 +10,8 @@ import Vision
 
 protocol MLProcessor {
     
+    var width: Int { get }
+    var height: Int { get }
+    
     func process(image: CIImage) throws -> UIImage
 }

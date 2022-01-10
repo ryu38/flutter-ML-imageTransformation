@@ -45,10 +45,11 @@ class _DisplayImageState extends State<DisplayImage> {
 
     final outputPath = await FileUtils.joinPathToCache(_Const.outputName);
     
-    final result = await GANImageConverter
-        .transformImage(imagePath, widget.modelPath, outputPath);
-    print(result);
-    if (result) {
+    final result = await MLImageTransformer.transformImage(
+      imagePath: imagePath, outputPath: outputPath,
+    );
+    print(result ?? "no error");
+    if (result == null) {
       final newImage = Image.file(File(outputPath));
       
       if (!mounted) return;

@@ -6,9 +6,12 @@ import org.pytorch.IValue
 import org.pytorch.Module
 import org.pytorch.torchvision.TensorImageUtils
 
-class MLProcessorImpl(modelPath: String): MLProcessor {
+class MLProcessorImpl(
+    modelPath: String,
+    override val width: Int,
+    override val height: Int): MLProcessor {
 
-    private val module = Module.load(modelPath)
+    override val module = Module.load(modelPath)
 
     override fun process(bitmap: Bitmap): Bitmap {
         val inputTensor = TensorImageUtils.bitmapToFloat32Tensor(
@@ -21,8 +24,8 @@ class MLProcessorImpl(modelPath: String): MLProcessor {
 
     private val FloatArray.bitmap: Bitmap
         get() {
-            val bitmap = Bitmap.createBitmap(WIDTH, HEIGHT, Bitmap.Config.ARGB_8888)
-            val totalPixels = WIDTH * HEIGHT
+            val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+            val totalPixels = width * height
             val pixelArray = IntArray(totalPixels)
 
             val denorm = { n: Float -> (n * RGB_STD) + RGB_MEAN }
@@ -32,13 +35,11 @@ class MLProcessorImpl(modelPath: String): MLProcessor {
                     denorm(this[i]), denorm(this[i + totalPixels]), denorm(this[i + 2 * totalPixels])
                 )
             }
-            bitmap.setPixels(pixelArray, 0, WIDTH, 0, 0, WIDTH, HEIGHT)
+            bitmap.setPixels(pixelArray, 0, width, 0, 0, width, height)
             return bitmap
         }
 
     companion object {
-        private const val WIDTH = 256
-        private const val HEIGHT = 256
         private const val RGB_MEAN = 0.5f
         private const val RGB_STD = 0.5f
     }

@@ -8,24 +8,32 @@ import com.example.flutter_pytorch_coreml_cyclegan.utils.BitmapProcessorImpl
 object CMImageTransform {
 
     private val bitmapProcessor: BitmapProcessor = BitmapProcessorImpl()
-    private var MLProcessor: MLProcessor? = null
+    private var mlProcessor: MLProcessor? = null
 
-    fun main(imagePath: String, modelPath: String, outputPath: String): String? {
+    fun setModel(modelPath: String, width: Int, height: Int): String? {
         try {
-            val srcBitmap = bitmapProcessor.loadImage(imagePath)
-            val input = bitmapProcessor.centerCropScale(srcBitmap, WIDTH, HEIGHT)
-            if (MLProcessor == null) {
-                MLProcessor = MLProcessorImpl(modelPath)
+            mlProcessor = MLProcessorImpl(modelPath, width, height)
+        } catch (ex: Exception) {
+            return ex.message ?: "unknown"
+        }
+        return null
+    }
+
+    fun transformImage(
+        imagePath: String, outputPath: String): String? {
+        try {
+            mlProcessor?.let {
+                val srcBitmap = bitmapProcessor.loadImage(imagePath)
+                val input = bitmapProcessor.centerCropScale(
+                    srcBitmap, it.width, it.height)
+                it.process(input).also {
+                    bitmapProcessor.saveBitmap(it, outputPath)
+                    return null
+                }
             }
-            MLProcessor!!.process(input).also {
-                bitmapProcessor.saveBitmap(it, outputPath)
-            }
-            return null
+            throw Exception("a model is not set")
         } catch (ex: Exception) {
             return ex.message ?: "unknown"
         }
     }
-
-    const val WIDTH = 256
-    const val HEIGHT = 256
 }
