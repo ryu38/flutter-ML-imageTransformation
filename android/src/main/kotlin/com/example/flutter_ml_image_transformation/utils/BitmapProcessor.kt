@@ -8,5 +8,6 @@ interface BitmapProcessor {
 
     fun saveBitmap(bitmap: Bitmap, path: String)
 
-    fun centerCropScale(src: Bitmap, width: Int, height: Int): Bitmap
+    fun centerCropScaleRotate(
+        src: Bitmap, width: Int, height: Int, rotate: Float? = null): Bitmap
 }

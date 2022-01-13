@@ -4,6 +4,8 @@ import com.example.flutter_ml_image_transformation.pytorch.MLProcessor
 import com.example.flutter_ml_image_transformation.pytorch.MLProcessorImpl
 import com.example.flutter_ml_image_transformation.utils.BitmapProcessor
 import com.example.flutter_ml_image_transformation.utils.BitmapProcessorImpl
+import com.example.flutter_ml_image_transformation.utils.ImageFileUtils
+import io.flutter.Log
 
 object CMImageTransform {
 
@@ -24,8 +26,9 @@ object CMImageTransform {
         try {
             mlProcessor?.let {
                 val srcBitmap = bitmapProcessor.loadImage(imagePath)
-                val input = bitmapProcessor.centerCropScale(
-                    srcBitmap, it.width, it.height)
+                val rotation = ImageFileUtils.getRotation(imagePath)
+                val input = bitmapProcessor.centerCropScaleRotate(
+                    srcBitmap, it.width, it.height, rotate = rotation.toFloat())
                 it.process(input).also {
                     bitmapProcessor.saveBitmap(it, outputPath)
                     return null

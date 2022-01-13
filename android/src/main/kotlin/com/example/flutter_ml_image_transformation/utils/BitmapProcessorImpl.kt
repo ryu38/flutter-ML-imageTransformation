@@ -19,7 +19,9 @@ class BitmapProcessorImpl: BitmapProcessor {
         File(path).writeBytes(jpgArray)
     }
 
-    override fun centerCropScale(src: Bitmap, width: Int, height: Int): Bitmap {
+    override fun centerCropScaleRotate(
+        src: Bitmap, width: Int, height: Int, rotate: Float?): Bitmap {
+
         val srcWidth = src.width
         val srcHeight = src.height
 
@@ -29,6 +31,7 @@ class BitmapProcessorImpl: BitmapProcessor {
         val matrix = { srcW: Int, srcH: Int ->
             Matrix().apply {
                 postScale(width.toFloat() / srcW, height.toFloat() / srcH)
+                rotate?.let { postRotate(it) }
             }
         }
 
