@@ -8,6 +8,9 @@ import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 /** FlutterPytorchCoremlCycleganPlugin */
 class FlutterPytorchCoremlCycleganPlugin: FlutterPlugin, MethodCallHandler {
@@ -16,6 +19,8 @@ class FlutterPytorchCoremlCycleganPlugin: FlutterPlugin, MethodCallHandler {
   /// This local reference serves to register the plugin with the Flutter Engine and unregister it
   /// when the Flutter Engine is detached from the Activity
   private lateinit var channel : MethodChannel
+
+  private val mainScope = CoroutineScope(Dispatchers.Main)
 
   override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
     channel = MethodChannel(flutterPluginBinding.binaryMessenger, "flutter_ml_image_transformation")
@@ -29,17 +34,21 @@ class FlutterPytorchCoremlCycleganPlugin: FlutterPlugin, MethodCallHandler {
         val modelPath = params["modelPath"] as String
         val width = params["inputWidth"] as Int
         val height = params["inputHeight"] as Int
-        result.success(
-          CMImageTransform.setModel(modelPath, width, height)
-        )
+        mainScope.launch {
+          result.success(
+            CMImageTransform.setModel(modelPath, width, height)
+          )
+        }
       }
       "transformImage" -> {
         val params = call.arguments as HashMap<String, *>
         val imagePath = params["imagePath"] as String
         val outputPath = params["outputPath"] as String
-        result.success(
-          CMImageTransform.transformImage(imagePath, outputPath)
-        )
+        mainScope.launch {
+          result.success(
+            CMImageTransform.transformImage(imagePath, outputPath)
+          )
+        }
       }
       else -> {
         result.notImplemented()
