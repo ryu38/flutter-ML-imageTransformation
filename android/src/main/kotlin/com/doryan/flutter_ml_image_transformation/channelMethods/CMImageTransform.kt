@@ -1,9 +1,9 @@
-package com.example.flutter_ml_image_transformation.channelMethods
+package com.doryan.flutter_ml_image_transformation.channelMethods
 
-import com.example.flutter_ml_image_transformation.pytorch.MLProcessor
-import com.example.flutter_ml_image_transformation.pytorch.MLProcessorImpl
-import com.example.flutter_ml_image_transformation.utils.BitmapProcessor
-import com.example.flutter_ml_image_transformation.utils.BitmapProcessorImpl
+import com.doryan.flutter_ml_image_transformation.pytorch.MLProcessor
+import com.doryan.flutter_ml_image_transformation.pytorch.MLProcessorImpl
+import com.doryan.flutter_ml_image_transformation.utils.BitmapProcessor
+import com.doryan.flutter_ml_image_transformation.utils.BitmapProcessorImpl
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

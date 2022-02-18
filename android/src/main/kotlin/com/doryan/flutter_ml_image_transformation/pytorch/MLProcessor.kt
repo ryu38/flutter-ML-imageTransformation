@@ -1,4 +1,4 @@
-package com.example.flutter_ml_image_transformation.pytorch
+package com.doryan.flutter_ml_image_transformation.pytorch
 
 import android.graphics.Bitmap
 import org.pytorch.Module
