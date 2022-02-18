@@ -28,7 +28,7 @@ flutter:
   plugin:
     platforms:
       android:
-        package: com.example.flutter_ml_image_transformation
+        package: com.doryan.flutter_ml_image_transformation
         pluginClass: FlutterPytorchCoremlCycleganPlugin
       ios:
         pluginClass: FlutterPytorchCoremlCycleganPlugin

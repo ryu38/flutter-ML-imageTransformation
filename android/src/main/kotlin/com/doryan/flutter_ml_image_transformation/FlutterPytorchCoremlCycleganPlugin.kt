@@ -1,7 +1,7 @@
-package com.example.flutter_ml_image_transformation
+package com.doryan.flutter_ml_image_transformation
 
 import androidx.annotation.NonNull
-import com.example.flutter_ml_image_transformation.channelMethods.CMImageTransform
+import com.doryan.flutter_ml_image_transformation.channelMethods.CMImageTransform
 
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.plugin.common.MethodCall
