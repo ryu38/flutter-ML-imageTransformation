@@ -15,7 +15,9 @@ class CMImageTransform {
     
     static func setModel(modelPath: String, width: Int, height: Int) -> String? {
         do {
-            mlProcessor = try MLProcessorImpl(modelPath, width, height)
+            if (mlProcessor == nil) {
+                mlProcessor = try MLProcessorImpl(modelPath, width, height)
+            }
             return nil
         } catch let error {
             return error.localizedDescription

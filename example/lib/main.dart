@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 
@@ -7,7 +8,10 @@ import 'package:flutter_ml_image_transformation/flutter_ml_image_transformation.
 import 'package:flutter_ml_image_transformation_example/ui/display_image.dart';
 import 'package:flutter_ml_image_transformation_example/utils/file_utils.dart';
 
-void main() {
+late final CameraDescription camera;
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  camera = (await availableCameras()).last;
   runApp(const SampleApp());
 }
 
@@ -30,14 +34,14 @@ class _SampleAppState extends State<SampleApp> {
   Future<void> loadMLModel() async {
     try {
       final config = _Config();
-      final modelPath = 
-          await FileUtils.copyAssetToAppDir(config.assetModelPath, config.appDirModelPath);
+      final modelPath = await FileUtils.copyAssetToAppDir(
+          config.assetModelPath, config.appDirModelPath);
       final result = await MLImageTransformer.setModel(modelPath: modelPath);
       if (result != null) throw Exception(result);
       setState(() {
         _modelPath = modelPath;
       });
-    } on Exception catch(e) {
+    } on Exception catch (e) {
       print(e);
     }
   }
@@ -53,10 +57,9 @@ class _SampleAppState extends State<SampleApp> {
         ),
         body: SingleChildScrollView(
           child: Center(
-            child: modelPath != null
-                ? DisplayImage(modelPath: modelPath)
-                : const Text('model loading...')
-          ),
+              child: modelPath != null
+                  ? DisplayImage(modelPath: modelPath)
+                  : const Text('model loading...')),
         ),
       ),
     );
@@ -68,10 +71,7 @@ class _Config {
   final String appDirModelPath;
 
   // private constructor
-  const _Config._(
-    this.assetModelPath,
-    this.appDirModelPath
-  );
+  const _Config._(this.assetModelPath, this.appDirModelPath);
 
   factory _Config() {
     final _Config instance;
@@ -85,13 +85,10 @@ class _Config {
     return instance;
   }
 
-  const _Config._android(): this._(
-    'assets/pytorch_model/GANModelFloat32.ptl',
-    'GANModel.ptl'
-  );
+  const _Config._android()
+      : this._('assets/pytorch_model/GANModelFloat32.ptl', 'GANModel.ptl');
 
-  const _Config._ios(): this._(
-    'assets/coreml_model/GANModelFloat16.mlmodel',
-    'GANModel.mlmodel'
-  );
+  const _Config._ios()
+      : this._(
+            'assets/coreml_model/GANModelFloat16.mlmodel', 'GANModel.mlmodel');
 }
