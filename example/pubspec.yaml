@@ -32,6 +32,8 @@ dependencies:
 
   path_provider: ^2.0.8
   path: ^1.8.0
+  camera: ^0.9.4+14
+  flutter_exif_rotation: ^0.4.3
 
 dev_dependencies:
   flutter_test:

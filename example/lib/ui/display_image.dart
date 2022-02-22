@@ -3,22 +3,19 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_ml_image_transformation/flutter_ml_image_transformation.dart';
+import 'package:flutter_ml_image_transformation_example/ui/camera/camera.dart';
 import 'package:flutter_ml_image_transformation_example/utils/file_utils.dart';
 
 class DisplayImage extends StatefulWidget {
   final String modelPath;
 
-  const DisplayImage({
-    required this.modelPath,
-    Key? key 
-  }) : super(key: key);
+  const DisplayImage({required this.modelPath, Key? key}) : super(key: key);
 
   @override
   _DisplayImageState createState() => _DisplayImageState();
 }
 
 class _DisplayImageState extends State<DisplayImage> {
-
   Image? _imageShown;
   String? _imagePath;
   bool _isConverted = false;
@@ -35,7 +32,8 @@ class _DisplayImageState extends State<DisplayImage> {
 
   Future<void> loadAssetImg() async {
     const assetImg = Image(image: AssetImage(_Const.assetPath));
-    final imagePath = await FileUtils.copyAssetToCache(_Const.assetPath, _Const.imageName);
+    final imagePath =
+        await FileUtils.copyAssetToCache(_Const.assetPath, _Const.imageName);
 
     setState(() {
       _imageShown = assetImg;
@@ -46,7 +44,17 @@ class _DisplayImageState extends State<DisplayImage> {
     });
   }
 
-  Future<void> convert() async {
+  Future<void> _openCamera() async {
+    final path = await Navigator.of(context).push<String>(MaterialPageRoute(
+      builder: (_) => const CameraScreen(),
+    ));
+    setState(() {
+      _imageShown = Image.file(File(path!));
+      _imagePath = path;
+    });
+  }
+
+  Future<void> _convert() async {
     final imagePath = _imagePath;
     if (imagePath == null) return;
 
@@ -62,15 +70,16 @@ class _DisplayImageState extends State<DisplayImage> {
     });
 
     final outputPath = await FileUtils.joinPathToCache(_Const.outputName);
-    
+
     final result = await MLImageTransformer.transformImage(
-      imagePath: imagePath, outputPath: outputPath,
+      imagePath: imagePath,
+      outputPath: outputPath,
     );
     _timer?.cancel();
     print(result ?? "no error");
     if (result == null) {
       final newImage = Image.file(File(outputPath));
-      
+
       if (!mounted) return;
 
       setState(() {
@@ -88,42 +97,43 @@ class _DisplayImageState extends State<DisplayImage> {
 
     return imageShown != null
         ? Column(
-          children: [
-            imageShown,
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                !_isConverted 
-                    ? ElevatedButton(
-                      onPressed: !_isStarted ? convert : null, 
-                      child: const Text('convert')
-                    )
-                    : ElevatedButton(
-                      onPressed: loadAssetImg, 
-                      child: const Text('reset')
-                    ),
-                const SizedBox(width: 16),
-                Text('sec: ${_time.toStringAsFixed(1)}'),
-              ],
-            ),
-            Text('image path: ${_imagePath ?? 'error path'}'),
-            const SizedBox(height: 24),
-            Text('model path: ${widget.modelPath}')
-          ],
-        )
+            children: [
+              imageShown,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  if (!_isConverted) ElevatedButton(
+                    onPressed: _openCamera,
+                    child: const Text('camera'),
+                  ),
+                  const SizedBox(width: 16),
+                  !_isConverted
+                      ? ElevatedButton(
+                          onPressed: !_isStarted ? _convert : null,
+                          child: const Text('convert'))
+                      : ElevatedButton(
+                          onPressed: loadAssetImg, child: const Text('reset')),
+                  const SizedBox(width: 16),
+                  Text('sec: ${_time.toStringAsFixed(1)}'),
+                ],
+              ),
+              Text('image path: ${_imagePath ?? 'error path'}'),
+              const SizedBox(height: 24),
+              Text('model path: ${widget.modelPath}')
+            ],
+          )
         : const Text('No Images');
   }
 }
 
 class TimerWidget extends StatefulWidget {
-  const TimerWidget({ Key? key }) : super(key: key);
+  const TimerWidget({Key? key}) : super(key: key);
 
   @override
   _TimerWidgetState createState() => _TimerWidgetState();
 }
 
 class _TimerWidgetState extends State<TimerWidget> {
-
   double _time = 0;
   late Timer _timer;
 
@@ -139,9 +149,7 @@ class _TimerWidgetState extends State<TimerWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      
-    );
+    return Container();
   }
 }
 
